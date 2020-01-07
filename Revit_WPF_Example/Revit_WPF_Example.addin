@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RevitAddIns>
+    <AddIn Type="Command">
+        <Assembly>Revit_WPF_Example.dll</Assembly>
+        <ClientId>42ACC6AE-0901-4398-B709-6DEAAE3053F0</ClientId>
+        <FullClassName>Revit_WPF_Example.RvtCommand</FullClassName>
+        <Name>Revit_WPF_Example</Name>
+        <VendorId>arch4hum</VendorId>
+    </AddIn>
+</RevitAddIns>

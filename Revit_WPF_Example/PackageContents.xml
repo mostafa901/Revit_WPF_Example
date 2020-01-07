@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ApplicationPackage>
+    <Components Description="2018 parts">
+        <RuntimeRequirements OS="Win32|Win64"
+                   Platform="Revit|Revit Architecture|Revit Structure|Revit MEP"
+                   SeriesMin="R2018"
+                   SeriesMax="R2018" />
+        <ComponentEntry AppName="Revit_WPF_Example"
+                Version="1.0.0"
+                ModuleName="./Contents/Revit_WPF_Example.addin"
+                AppDescription="Revit_WPF_Example" />
+    </Components>
+</ApplicationPackage>

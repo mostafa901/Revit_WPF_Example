@@ -1,0 +1,13 @@
+﻿<Window x:Class="Revit_WPF_Example.WPF_Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Revit_WPF_Example"
+        mc:Ignorable="d"
+        Title="WPF_Window" Height="450" Width="800">
+    <StackPanel>
+        <Button Content="Pick Object" Width="100" Height="30" Command="{Binding CMD_Select}"/>
+        <TextBlock Text="{Binding SelectedElement}"/>
+    </StackPanel>
+</Window>
