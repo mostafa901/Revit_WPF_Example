@@ -24,8 +24,8 @@ namespace Revit_WPF_Example
         public WPF_Window(UIApplication uiApp)
         {
             InitializeComponent();
-            var mv_DataContext = new ModelView.MV_Window();
-            mv_DataContext.SetUIApp(uiApp);
+            var mv_DataContext = new ModelView.MV_Window(uiApp);
+ 
             DataContext = mv_DataContext;
         }       
     }

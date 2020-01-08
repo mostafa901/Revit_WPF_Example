@@ -2,6 +2,7 @@
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 using Revit_WPF_Example.Commands;
+using Revit_WPF_Example.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,22 +19,7 @@ namespace Revit_WPF_Example.ModelView
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private Document Doc { get; set; }
-        private UIDocument UIDoc { get; set; }
-
-        private UIApplication uIApp;
-
-        public UIApplication GetUIApp()
-        {
-            return uIApp;
-        }
-
-        internal void SetUIApp(UIApplication value)
-        {
-            uIApp = value;
-            UIDoc = uIApp.ActiveUIDocument;
-            Doc = UIDoc.Document;
-        }
+        private RevitActions RvtActions;
 
         #region SelectedElement
 
@@ -75,51 +61,29 @@ namespace Revit_WPF_Example.ModelView
 
         #endregion CMD_Select
 
-        private ExternalEvent RvtExEvent;
-        private Executer ExecuterHandler;
-
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public MV_Window()
+        public MV_Window(UIApplication uiApp)
         {
-            SetupRevitEventHandler();
             SetupCommands();
-        }
-
-        private void SetupRevitEventHandler()
-        {
-            // A new handler to handle request posting by the dialog
-            ExecuterHandler = new Executer();
-            RvtExEvent = ExternalEvent.Create(ExecuterHandler);
+            RvtActions = new RevitActions(uiApp);
         }
 
         private void SetupCommands()
         {
             CMD_Select.CommandAction = () =>
             {
-                RunOnREvitThread(() =>
-                {
-                    try
-                    {
-                        var refEle = UIDoc.Selection.PickObject(ObjectType.Element);
-                        var element = Doc.GetElement(refEle);
-                        SelectedElement = $"You Selected {element.Name} of Id: {element.Id}";
-                    }
-                    catch (Exception ex)
-                    {
-                        TaskDialog.Show("WPF Window Test", "User Aborted");
-                    }
-                });
+                RunOnREvitThread(() => SelectedElement = RvtActions.SelectElement());
             };
         }
 
         private bool RunOnREvitThread(Action action)
         {
-            ExecuterHandler.ExcutableAction = action;
-            RvtExEvent.Raise();
+            RvtActions.ExecuterHandler.ExcutableAction = action;
+            RvtActions.RvtExEvent.Raise();
             return true;
         }
     }

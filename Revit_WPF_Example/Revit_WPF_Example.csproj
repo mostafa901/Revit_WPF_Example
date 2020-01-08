@@ -55,6 +55,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\RevitActions.cs" />
     <Compile Include="RvtCommand.cs" />
     <Compile Include="Commands\CustomCommand.cs" />
     <Compile Include="Commands\Executer.cs" />
