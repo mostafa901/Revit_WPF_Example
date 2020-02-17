@@ -25,7 +25,7 @@ namespace Revit_WPF_Example
         {
             InitializeComponent();
             var mv_DataContext = new ModelView.MV_Window(uiApp);
- 
+            SizeToContent = SizeToContent.Width;
             DataContext = mv_DataContext;
         }       
     }

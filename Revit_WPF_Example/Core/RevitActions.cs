@@ -12,8 +12,8 @@ namespace Revit_WPF_Example.Core
 {
     class RevitActions
     {
-        private Document Doc { get; set; }
-        private UIDocument UIDoc { get; set; }
+        public Document Doc { get; set; }
+        public UIDocument UIDoc { get; set; }
         private UIApplication uIApp;
        
         public ExternalEvent RvtExEvent;
@@ -28,7 +28,7 @@ namespace Revit_WPF_Example.Core
 
         private void SetupRevitEventHandler()
         {
-            // A new handler to handle request posting by the dialog
+            // A new handler to handle request posted by the dialog
             ExecuterHandler = new Executer();
             RvtExEvent = ExternalEvent.Create(ExecuterHandler);
         }

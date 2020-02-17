@@ -3,8 +3,10 @@ using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 using Revit_WPF_Example.Commands;
 using Revit_WPF_Example.Core;
+using Revit_WPF_Example.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -61,6 +63,26 @@ namespace Revit_WPF_Example.ModelView
 
         #endregion CMD_Select
 
+        #region Items
+
+        private ObservableCollection<ElementModel> _Items;
+
+        public ObservableCollection<ElementModel> Items
+        {
+            get
+            {
+                if (_Items == null) _Items = new ObservableCollection<ElementModel>();
+                return _Items;
+            }
+            set
+            {
+                _Items = value;
+                NotifyPropertyChanged(nameof(Items));
+            }
+        }
+
+        #endregion Items
+
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -70,9 +92,33 @@ namespace Revit_WPF_Example.ModelView
         {
             SetupCommands();
             RvtActions = new RevitActions(uiApp);
+            CollectWallElements();
         }
 
-        private void SetupCommands()
+        private void CollectWallElements()
+        {
+            var filcol = new FilteredElementCollector(RvtActions.Doc).OfClass(typeof(Wall));
+            foreach (var wall in filcol)
+            {
+                ElementModel model = new ElementModel();
+                model.Name = $"{wall.Name}: {wall.Id.IntegerValue}";
+                model.CMD = new CustomCommand();
+                model.CMD.CommandAction = () =>
+                {
+                    RunOnREvitThread(() =>
+                    {
+                        var scope = new ScopeToElement(RvtActions);
+                    scope.ScopeToRvtElement(wall);
+                    });
+                };
+                Items.Add(model);
+            }
+        }
+
+       
+   
+
+    private void SetupCommands()
         {
             CMD_Select.CommandAction = () =>
             {
