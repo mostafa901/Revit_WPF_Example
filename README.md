@@ -10,6 +10,6 @@ this will allow user to select an element and show its name on the WPF window
 a list of elements are shown in the wpf window. User can click on any of those and Revit will instantly scope to the selected elememt.
 (make sure you are in the 3D view)
 
-![](scopetoelement.gif)
+![](ScopeToElement.gif)
 
 Hope this helps newbie Revit API users.
