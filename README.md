@@ -1,5 +1,5 @@
 # Revit_WPF_Example
-a very minimal example on how to run WPF window on Revit
+a very minimal example on how to run WPF window on Revit.
 There was a discussion on Autodesk RevitAPI Community, on how to implement WPF window within Revit. 
 [Link](https://forums.autodesk.com/t5/revit-api-forum/revit-crashes-when-exiting-add-in-wpf-application/m-p/9236332/highlight/true#M43707)
 I have written this very minimal example on how things works under the hood, and added 2 examples
